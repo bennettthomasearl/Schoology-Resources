@@ -20,6 +20,8 @@ Local $sDesiredCapabilities, $sSession, $sPath, $sParams, $sCSV
 $sPath = "C:\Users\Thomas\OneDrive - CEV Multimedia\Knowledge\LMS Sharing Resources\include\chromedriver.exe"
 $sCSV = "C:\Users\Thomas\OneDrive - CEV Multimedia\Knowledge\LMS Sharing Resources\include\schoology.csv"
 
+; DELETE THIS!
+
 Func SetupChrome()
 _WD_Option('Driver', $sPath)
 _WD_Option('Port', 9515)
