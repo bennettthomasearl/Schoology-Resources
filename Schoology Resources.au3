@@ -20,8 +20,6 @@ Local $sDesiredCapabilities, $sSession, $sPath, $sParams, $sCSV
 $sPath = "C:\Users\Thomas\OneDrive - CEV Multimedia\Knowledge\LMS Sharing Resources\include\chromedriver.exe"
 $sCSV = "C:\Users\Thomas\OneDrive - CEV Multimedia\Knowledge\LMS Sharing Resources\include\schoology.csv"
 
-; DELETE THIS!
-
 Func SetupChrome()
 _WD_Option('Driver', $sPath)
 _WD_Option('Port', 9515)
@@ -33,8 +31,9 @@ EndFunc
 SetupChrome()
 _WD_Startup()
 $sSession = _WD_CreateSession($sDesiredCapabilities)
-_WD_Navigate($sSession, "https://www.schoology.com/")
-$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//button[contains(text(),'Double-Click Me To See Alert')]")
+_WD_Navigate($sSession, "https://app.schoology.com/login")
+$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//input[@id='edit-mail']")
+_WD_ElementAction($sSession, $sElement, 'value', "Email Address here!")
 
 If @error = $_WD_ERROR_Success Then
     _WD_ElementActionEx($sSession, $sElement, "doubleclick")
