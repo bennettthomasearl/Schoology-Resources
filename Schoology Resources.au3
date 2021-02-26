@@ -6,7 +6,7 @@ Author(s) .....: Thomas E. Bennett, Anthony R. Perez
 Date ..........: Tue Feb 23 16:18:45 CST 2021
 
 When running this macro; make a batch file (.bat or .cmd) with these properties:
-"C:\Program Files (x86)\AutoIt3\AutoIt3.exe" "{Path to Script}\Schoology Resources.au3" "email or username" "password" "WebDriver path"
+"C:\Program Files (x86)\AutoIt3\AutoIt3.exe" "{Path to Script}\Schoology Resources.au3" "email or username" "password" "WebDriver path" ".csv path"
 
 Recommended Reading / Requirements
 https://www.autoitscript.com/forum/topic/191990-webdriver-udf-w3c-compliant-version-01162021/#comments
@@ -30,7 +30,7 @@ Local $sDesiredCapabilities, $sSession, $sPath, $sCSV
 
 ; Update these values to match your environment.
 $sPath = $CmdLine[3]
-$sCSV = "C:\Users\Thomas\OneDrive - CEV Multimedia\Knowledge\LMS Sharing Resources\include\schoology.csv"
+$sCSV = $CmdLine[4]
 
 Func SetupChrome()
 _WD_Option('Driver', $sPath)
@@ -106,7 +106,6 @@ $sSession = _WD_CreateSession($sDesiredCapabilities)
 SchoologyLogin()
 SchoologyResources()
 SchoologyImport()
-
 
 Sleep(4000)
 
