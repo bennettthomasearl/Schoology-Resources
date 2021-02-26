@@ -5,8 +5,8 @@ AutoIt Version : 3.3.14.5
 Author(s) .....: Thomas E. Bennett, Anthony R. Perez
 Date ..........: Tue Feb 23 16:18:45 CST 2021
 
-When running this macro; make a desktop shortcut with these properties:
-"C:\Program Files (x86)\AutoIt3\AutoIt3.exe" "{Path to Script}\Schoology Resources.au3" "email or username" "password"
+When running this macro; make a batch file (.bat or .cmd) with these properties:
+"C:\Program Files (x86)\AutoIt3\AutoIt3.exe" "{Path to Script}\Schoology Resources.au3" "email or username" "password" "WebDriver path"
 
 Recommended Reading / Requirements
 https://www.autoitscript.com/forum/topic/191990-webdriver-udf-w3c-compliant-version-01162021/#comments
@@ -29,7 +29,7 @@ Global Const $_WD_LOCATOR_ByTagName = "tag name"
 Local $sDesiredCapabilities, $sSession, $sPath, $sCSV
 
 ; Update these values to match your environment.
-$sPath = "C:\Users\Thomas\OneDrive - CEV Multimedia\Knowledge\LMS Sharing Resources\include\chromedriver.exe"
+$sPath = $CmdLine[3]
 $sCSV = "C:\Users\Thomas\OneDrive - CEV Multimedia\Knowledge\LMS Sharing Resources\include\schoology.csv"
 
 Func SetupChrome()
@@ -66,44 +66,47 @@ $sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//input[@id='edit-
 _WD_ElementAction($sSession, $sElement, 'click')
 EndFunc
 
+Func SchoologyResources()
+; Go to Resources
+_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//a[contains(text(),'Resources')]", 1000)
+$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//a[contains(text(),'Resources')]")
+; Click the Resources text
+_WD_ElementAction($sSession, $sElement, 'click')
+
+; Dropdown button
+_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//div[contains(@class,'action-links-wrapper action-links-wrapper-regular')]//div[contains(@class,'action-links-unfold')]", 1000)
+$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//div[contains(@class,'action-links-wrapper action-links-wrapper-regular')]//div[contains(@class,'action-links-unfold')]")
+; Click the Dropdown button
+_WD_ElementAction($sSession, $sElement, 'click')
+
+; Import
+_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//a[@id='import-collection-btn']", 1000)
+$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//a[@id='import-collection-btn']")
+; Click the Import option
+_WD_ElementAction($sSession, $sElement, 'click')
+EndFunc
+
+Func SchoologyImport()
+; Import from:*
+_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//div[@id='edit-adapter-common-cartridge-imscc-wrapper']", 1000)
+$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//div[@id='edit-adapter-common-cartridge-imscc-wrapper']")
+; Click the "Common Cartridge (IMSCC or ZIP) radio option
+_WD_ElementAction($sSession, $sElement, 'click')
+
+; Collection Title
+_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//input[@id='edit-destination-new-collection-title']", 1000)
+$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//input[@id='edit-destination-new-collection-title']")
+; Click the "Common Cartridge (IMSCC or ZIP) radio option
+_WD_ElementAction($sSession, $sElement, 'value', "Collection title goes here")
+EndFunc
+
 SetupChrome()
 _WD_Startup()
 $sSession = _WD_CreateSession($sDesiredCapabilities)
 SchoologyLogin()
+SchoologyResources()
+SchoologyImport()
 
-
-
-; Resources
-	; Go to Resources
-	_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//a[contains(text(),'Resources')]", 1000)
-	$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//a[contains(text(),'Resources')]")
-	; Click the Resources text
-	_WD_ElementAction($sSession, $sElement, 'click')
-
-	; Dropdown button
-	_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//div[contains(@class,'action-links-wrapper action-links-wrapper-regular')]//div[contains(@class,'action-links-unfold')]", 1000)
-	$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//div[contains(@class,'action-links-wrapper action-links-wrapper-regular')]//div[contains(@class,'action-links-unfold')]")
-	; Click the Dropdown button
-	_WD_ElementAction($sSession, $sElement, 'click')
-
-	; Import
-	_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//a[@id='import-collection-btn']", 1000)
-	$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//a[@id='import-collection-btn']")
-	; Click the Import option
-	_WD_ElementAction($sSession, $sElement, 'click')
-
-	; Import Collection
-		; Import from:*
-		_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//div[@id='edit-adapter-common-cartridge-imscc-wrapper']", 1000)
-		$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//div[@id='edit-adapter-common-cartridge-imscc-wrapper']")
-		; Click the "Common Cartridge (IMSCC or ZIP) radio option
-		_WD_ElementAction($sSession, $sElement, 'click')
-
-		; Collection Title
-		_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//input[@id='edit-destination-new-collection-title']", 1000)
-		$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//input[@id='edit-destination-new-collection-title']")
-		; Click the "Common Cartridge (IMSCC or ZIP) radio option
-		_WD_ElementAction($sSession, $sElement, 'value', "Collection title goes here")
 
 Sleep(4000)
 
