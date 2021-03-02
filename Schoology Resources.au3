@@ -27,10 +27,9 @@ Global Const $_WD_LOCATOR_ByTagName = "tag name"
 #include "wd_helper.au3"
 #include <MsgBoxConstants.au3>
 
-; Change the global timeout to 10 minutes
-;Global $_WD_DefaultTimeout = 600000
+Local $sDesiredCapabilities, $sSession, $sPath, $sFile, $sLine, $sCSV, $sFilename, $sArrayNumber, $sResourceTest
 
-Local $sDesiredCapabilities, $sSession, $sPath, $sFile, $sLine, $sCSV, $sFilename, $sArrayNumber
+$sResourceTest = "Resources"
 
 ; Update these values to match your environment.
 $sPath = $CmdLine[3]
@@ -89,17 +88,19 @@ While 1
 	; Remove ) from the string and use the last array number to ouput the curriculum id number
 	$sFilename = StringReplace ($sFilename[$sArrayNumber], ')', "")
 
-	;MsgBox($MB_SYSTEMMODAL, "Go to Resources, "")
+	;MsgBox($MB_SYSTEMMODAL, "Go to Resources", "//a[contains(text(),'" & $sResourceTest & "')]")
 	_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//a[contains(text(),'Resources')]")
+	;_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//a[contains(text(),'Resources')]")
 	$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//a[contains(text(),'Resources')]")
+	;$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//a[contains(text(),'Resources')]")
 	_WD_ElementAction($sSession, $sElement, 'click')
 
-	;MsgBox($MB_SYSTEMMODAL, "Click the Dropdown button, "")
+	;MsgBox($MB_SYSTEMMODAL, "Click the Dropdown button", "")
 	_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//div[contains(@class,'action-links-wrapper action-links-wrapper-regular')]//div[contains(@class,'action-links-unfold')]", 1000)
 	$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//div[contains(@class,'action-links-wrapper action-links-wrapper-regular')]//div[contains(@class,'action-links-unfold')]")
 	_WD_ElementAction($sSession, $sElement, 'click')
 
-	;MsgBox($MB_SYSTEMMODAL, "Click the Import button, "")
+	;MsgBox($MB_SYSTEMMODAL, "Click the Import button", "")
 	_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//a[@id='import-collection-btn']")
 	$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//a[@id='import-collection-btn']")
 	_WD_ElementAction($sSession, $sElement, 'click')
@@ -109,17 +110,17 @@ While 1
 	$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//div[@id='edit-adapter-common-cartridge-imscc-wrapper']")
 	_WD_ElementAction($sSession, $sElement, 'click')
 
-	MsgBox($MB_SYSTEMMODAL, "Change the Collection Title", "_WD_ElementAction($sSession, $sElement, 'value'," & $sCSV[1] & ")")
+	;MsgBox($MB_SYSTEMMODAL, "Change the Collection Title", "_WD_ElementAction($sSession, $sElement, 'value'," & $sCSV[1] & ")")
 	_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//input[@id='edit-destination-new-collection-title']")
 	$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//input[@id='edit-destination-new-collection-title']")
 	_WD_ElementAction($sSession, $sElement, 'value', $sCSV[1])
 
-	MsgBox($MB_SYSTEMMODAL, "Click the Next button", "")
+	;MsgBox($MB_SYSTEMMODAL, "Click the Next button", "")
 	_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//form[@id='s-library-collection-import-form']//input[@id='edit-submit']")
 	$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//form[@id='s-library-collection-import-form']//input[@id='edit-submit']")
 	_WD_ElementAction($sSession, $sElement, 'click')
 
-	MsgBox($MB_SYSTEMMODAL, "Click the Attach File button", "")
+	;MsgBox($MB_SYSTEMMODAL, "Click the Attach File button", "")
 	_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//span[@id='upload-btn']")
 	$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//span[@id='upload-btn']")
 	_WD_ElementAction($sSession, $sElement, 'click')
@@ -141,22 +142,22 @@ While 1
 	$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//form[@id='s-library-collection-import-form']//input[@id='edit-submit']")
 	_WD_ElementAction($sSession, $sElement, 'click')
 
-	MsgBox($MB_SYSTEMMODAL, "Go into the Resource that was just uploaded", "//a[contains(text()," & $sCSV[1] & "]")
-	_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//a[contains(text()," & $sCSV[1] & "]")
-	$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//a[contains(text()," & $sCSV[1] & "]")
+	;MsgBox($MB_SYSTEMMODAL, "Go into the Resource that was just uploaded", "//a[contains(text(),'" & $sCSV[1] & "')]")
+	_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//a[contains(text(),'" & $sCSV[1] & "')]")
+	$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//a[contains(text(),'" & $sCSV[1] & "')]")
 	_WD_ElementAction($sSession, $sElement, 'click')
 
-	MsgBox($MB_SYSTEMMODAL, "Click the Add Resources button", "")
+	;MsgBox($MB_SYSTEMMODAL, "Click the Add Resources button", "")
 	_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//span[contains(text(),'Add Resources')]")
 	$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//span[contains(text(),'Add Resources')]")
 	_WD_ElementAction($sSession, $sElement, 'click')
 
-	MsgBox($MB_SYSTEMMODAL, "Click the Add Folder button", "")
+	;MsgBox($MB_SYSTEMMODAL, "Click the Add Folder button", "")
 	_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//a[contains(text(),'Add Folder')]")
 	$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//a[contains(text(),'Add Folder')]")
 	_WD_ElementAction($sSession, $sElement, 'click')
 
-	MsgBox($MB_SYSTEMMODAL, "Name the folder", "")
+	;MsgBox($MB_SYSTEMMODAL, "Name the folder", "")
 	_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//input[@id='edit-title']")
 	$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//input[@id='edit-title']")
 	_WD_ElementAction($sSession, $sElement, 'value', $sCSV[1])
