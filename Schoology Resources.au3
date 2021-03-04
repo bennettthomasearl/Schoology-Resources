@@ -147,13 +147,27 @@ While 1
 	_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//form[@id='s-library-collection-import-form']//input[@id='edit-submit']")
 	$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//form[@id='s-library-collection-import-form']//input[@id='edit-submit']")
 	_WD_ElementAction($sSession, $sElement, 'click')
-	_WD_LoadWait($sSession, 2000)
+
+	;Twenty (20) Minute wait!
+	;_WD_LoadWait($sSession, 1200000)
+
+	;Five (5) Minute wait!
+	;_WD_LoadWait($sSession, 300000)
+
+	;Thirty (30) Second wait!
+	_WD_LoadWait($sSession, 30000)
 
 	;MsgBox($MB_SYSTEMMODAL, "Go into the Resource that was just uploaded", "//a[contains(text(),'" & $sCSV[1] & "')]")
 	_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//a[contains(text(),'" & $sCSV[1] & "')]")
 	$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//a[contains(text(),'" & $sCSV[1] & "')]")
 	_WD_ElementAction($sSession, $sElement, 'click')
-	_WD_LoadWait($sSession, 2000)
+	_WD_LoadWait($sSession, 4000)
+
+	; This is needed to force all of the folders to show on this page, sends you to the end / bottom of the page.
+	Send("{END}")
+	Sleep(2000)
+	Send("{END}")
+	Sleep(2000)
 
 	;MsgBox($MB_SYSTEMMODAL, "Click the Add Resources button", "//span[contains(text(),'Add Resources')]")
 	_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//span[contains(text(),'Add Resources')]")
@@ -229,9 +243,12 @@ While 1
 	_WD_LoadWait($sSession, 2000)
 
 	;MsgBox($MB_SYSTEMMODAL, "Provide Public Info", "//textarea[@id='edit-description']")
-	_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//textarea[@id='edit-description']")
-	$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//textarea[@id='edit-description']")
+	$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//iframe[@id='edit-description_ifr']")
+	_WD_FrameEnter($sSession, $sElement)
+		_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//body[@id='tinymce']")
+		$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//body[@id='tinymce']")
 	_WD_ElementAction($sSession, $sElement, 'value', "For integration information please visit: https://www.icevonline.com/resources/product-guides/iCEV-and-Schoology. The final certification exam must be taken at iCEVonline.com; the final exam cannot be integrated through an external tool.")
+	_WD_FrameLeave($sSession)
 	_WD_LoadWait($sSession, 2000)
 
 	;MsgBox($MB_SYSTEMMODAL, "Select the correct Resource Type", "//select[@id='edit-use-category']//option[contains(text(),'Curriculum')]")
