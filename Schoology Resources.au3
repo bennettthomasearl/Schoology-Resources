@@ -140,13 +140,15 @@ While 1
 	ControlSetText("Open","","Edit1","C:\Users\" & $CmdLine[5] & "\Downloads\icevcourse_" & $sFilename & "_v1.2.imscc")
 	; Click the 'Open' button
 	ControlClick("Open","","Button1")
-	_WD_LoadWait($sSession, 2000)
 	; End of Upload .imscc file
+
+	_WD_LoadWait($sSession, 4000)
 
 	;MsgBox($MB_SYSTEMMODAL, "Click the Next button", "")
 	_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//form[@id='s-library-collection-import-form']//input[@id='edit-submit']")
 	$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//form[@id='s-library-collection-import-form']//input[@id='edit-submit']")
 	_WD_ElementAction($sSession, $sElement, 'click')
+	_WD_LoadWait($sSession, 2000)
 
 	;Give Schoology time to process the file before continuing.
 
@@ -168,10 +170,18 @@ While 1
 	_WD_ElementAction($sSession, $sElement, 'click')
 	_WD_LoadWait($sSession, 4000)
 
-	; This is needed to force all of the folders to show on this page, sends you to the end / bottom of the page.
+	; This is needed to force all of the folders to show on this page, sends browser to the end / bottom of the page.
+	WinActivate ("Schoology - Google Chrome")
 	Send("{END}")
+	_WD_LoadWait($sSession, 2000)
 	Sleep(2000)
+	WinActivate ("Schoology - Google Chrome")
 	Send("{END}")
+	_WD_LoadWait($sSession, 2000)
+	Sleep(2000)
+	WinActivate ("Schoology - Google Chrome")
+	Send("{END}")
+	_WD_LoadWait($sSession, 2000)
 	Sleep(2000)
 
 	;MsgBox($MB_SYSTEMMODAL, "Click the Add Resources button", "//span[contains(text(),'Add Resources')]")
@@ -207,6 +217,20 @@ While 1
 	_WD_ElementAction($sSession, $sElement, 'click')
 	_WD_LoadWait($sSession, 2000)
 
+	; This is needed to force all of the folders to show on this page, sends browser to the end / bottom of the page.
+	WinActivate ("Schoology - Google Chrome")
+	Send("{END}")
+	_WD_LoadWait($sSession, 2000)
+	Sleep(2000)
+	WinActivate ("Schoology - Google Chrome")
+	Send("{END}")
+	_WD_LoadWait($sSession, 2000)
+	Sleep(2000)
+	WinActivate ("Schoology - Google Chrome")
+	Send("{END}")
+	_WD_LoadWait($sSession, 2000)
+	Sleep(2000)
+
 	;MsgBox($MB_SYSTEMMODAL, "Click Select All checkbox", "")
 	_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//input[@class='form-checkbox select-all-checkbox']")
 	$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//input[@class='form-checkbox select-all-checkbox']")
@@ -218,6 +242,20 @@ While 1
 	$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//table[@id='collection-view-contents']//child::a[@class='item-title active sLibraryAjaxedLinks-processed sExtlink-processed'][contains(text(),'" & $sCSV[1] & "')]//parent::td//parent::tr//child::td[@class='collection-item-checkbox sLibrary-processed']//input[@class='form-checkbox']")
 	_WD_ElementAction($sSession, $sElement, 'click')
 	_WD_LoadWait($sSession, 2000)
+
+	; This is needed to force all of the folders to show on this page, sends browser to the end / bottom of the page.
+	WinActivate ("Schoology - Google Chrome")
+	Send("{END}")
+	_WD_LoadWait($sSession, 2000)
+	Sleep(2000)
+	WinActivate ("Schoology - Google Chrome")
+	Send("{END}")
+	_WD_LoadWait($sSession, 2000)
+	Sleep(2000)
+	WinActivate ("Schoology - Google Chrome")
+	Send("{END}")
+	_WD_LoadWait($sSession, 2000)
+	Sleep(2000)
 
 	;MsgBox($MB_SYSTEMMODAL, "Click the Edit button", "")
 	_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//span[contains(text(),'Edit')]")
@@ -270,7 +308,7 @@ While 1
 	_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//form[@id='s-library-template-publish-form']//input[@id='edit-submit']")
 	$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//form[@id='s-library-template-publish-form']//input[@id='edit-submit']")
 	_WD_ElementAction($sSession, $sElement, 'click')
-	_WD_LoadWait($sSession, 60000)
+	_WD_LoadWait($sSession, 300000)
 
 WEnd
 
