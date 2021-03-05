@@ -148,14 +148,19 @@ While 1
 	$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//form[@id='s-library-collection-import-form']//input[@id='edit-submit']")
 	_WD_ElementAction($sSession, $sElement, 'click')
 
-	;Twenty (20) Minute wait!
+	;Give Schoology time to process the file before continuing.
+
+	;Twenty (20) minute wait
 	;_WD_LoadWait($sSession, 1200000)
 
-	;Five (5) Minute wait!
+	;Ten (10) minute wait
+	_WD_LoadWait($sSession, 600000)
+
+	;Five (5) minute wait
 	;_WD_LoadWait($sSession, 300000)
 
-	;Thirty (30) Second wait!
-	_WD_LoadWait($sSession, 30000)
+	;Thirty (30) second wait
+	;_WD_LoadWait($sSession, 30000)
 
 	;MsgBox($MB_SYSTEMMODAL, "Go into the Resource that was just uploaded", "//a[contains(text(),'" & $sCSV[1] & "')]")
 	_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//a[contains(text(),'" & $sCSV[1] & "')]")
@@ -247,7 +252,7 @@ While 1
 	_WD_FrameEnter($sSession, $sElement)
 		_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//body[@id='tinymce']")
 		$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//body[@id='tinymce']")
-	_WD_ElementAction($sSession, $sElement, 'value', "For integration information please visit: https://www.icevonline.com/resources/product-guides/iCEV-and-Schoology. The final certification exam must be taken at iCEVonline.com; the final exam cannot be integrated through an external tool.")
+	_WD_ElementAction($sSession, $sElement, 'value', "For integration information please visit: https://www.icevonline.com/resources/product-guides/iCEV-and-Schoology. The final certification exam must be taken at iCEVonline.com; the final exam cannot be integrated through an external tool." & $sCSV[2] & "")
 	_WD_FrameLeave($sSession)
 	_WD_LoadWait($sSession, 2000)
 
@@ -265,7 +270,7 @@ While 1
 	_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//form[@id='s-library-template-publish-form']//input[@id='edit-submit']")
 	$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//form[@id='s-library-template-publish-form']//input[@id='edit-submit']")
 	_WD_ElementAction($sSession, $sElement, 'click')
-	_WD_LoadWait($sSession, 2000)
+	_WD_LoadWait($sSession, 60000)
 
 WEnd
 
