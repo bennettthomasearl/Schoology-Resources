@@ -223,7 +223,7 @@ While 1
 	_WD_FrameEnter($sSession, $sElement)
 		_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//body[@id='tinymce']")
 		$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//body[@id='tinymce']")
-	_WD_ElementAction($sSession, $sElement, 'value', "For integration information please visit: https://www.icevonline.com/resources/product-guides/iCEV-and-Schoology. The final certification exam must be taken at iCEVonline.com; the final exam cannot be integrated through an external tool.")
+	_WD_ElementAction($sSession, $sElement, 'value', "For integration information please visit: https://www.icevonline.com/resources/product-guides/iCEV-and-Schoology. The final certification exam must be taken at iCEVonline.com; the final exam cannot be integrated through an external tool." & $sCSV[2] & "")
 	_WD_FrameLeave($sSession)
 	_WD_LoadWait($sSession, 2000)
 
@@ -231,7 +231,7 @@ While 1
 	_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//form[@id='s-library-collection-add-folder-form']//input[@id='edit-submit']")
 	$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//form[@id='s-library-collection-add-folder-form']//input[@id='edit-submit']")
 	_WD_ElementAction($sSession, $sElement, 'click')
-	_WD_LoadWait($sSession, 2000)
+	_WD_LoadWait($sSession, 10000)
 
 	; This is needed to force all of the folders to show on this page, sends browser to the end / bottom of the page.
 	WinActivate ("Schoology - Google Chrome")
@@ -269,12 +269,6 @@ While 1
 	_WD_ElementAction($sSession, $sElement, 'click')
 	_WD_LoadWait($sSession, 2000)
 
-	;MsgBox($MB_SYSTEMMODAL, "Click the created folder (uncheck)", "")
-	_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//table[@id='collection-view-contents']//child::a[@class='item-title active sLibraryAjaxedLinks-processed sExtlink-processed'][contains(text(),'" & $sCSV[1] & "')]//parent::td//parent::tr//child::td[@class='collection-item-checkbox sLibrary-processed']//input[@class='form-checkbox']")
-	$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//table[@id='collection-view-contents']//child::a[@class='item-title active sLibraryAjaxedLinks-processed sExtlink-processed'][contains(text(),'" & $sCSV[1] & "')]//parent::td//parent::tr//child::td[@class='collection-item-checkbox sLibrary-processed']//input[@class='form-checkbox']")
-	_WD_ElementAction($sSession, $sElement, 'click')
-	_WD_LoadWait($sSession, 2000)
-
 	; This is needed to force all of the folders to show on this page, sends browser to the end / bottom of the page.
 	WinActivate ("Schoology - Google Chrome")
 	Send("{END}")
@@ -304,6 +298,12 @@ While 1
 	Send("{END}")
 	_WD_LoadWait($sSession, 2000)
 	Sleep(2000)
+
+	;MsgBox($MB_SYSTEMMODAL, "Click the created folder (uncheck)", "")
+	_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//table[@id='collection-view-contents']//child::a[@class='item-title active sLibraryAjaxedLinks-processed sExtlink-processed'][contains(text(),'" & $sCSV[1] & "')]//parent::td//parent::tr//child::td[@class='collection-item-checkbox sLibrary-processed']//input[@class='form-checkbox']")
+	$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//table[@id='collection-view-contents']//child::a[@class='item-title active sLibraryAjaxedLinks-processed sExtlink-processed'][contains(text(),'" & $sCSV[1] & "')]//parent::td//parent::tr//child::td[@class='collection-item-checkbox sLibrary-processed']//input[@class='form-checkbox']")
+	_WD_ElementAction($sSession, $sElement, 'click')
+	_WD_LoadWait($sSession, 2000)
 
 	;MsgBox($MB_SYSTEMMODAL, "Click the Edit button", "")
 	_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//span[contains(text(),'Edit')]")
