@@ -1,5 +1,5 @@
 #cs ----------------------------------------------------------------
-Name ..........: Schoology Resources.au3
+Name ..........: Schoology Resources Updating Existing Curriculum.au3
 Description ...: Import thin common cartridge (thin cc) files into Schoology resources
 AutoIt Version : 3.3.14.5
 Author(s) .....: Thomas E. Bennett, Anthony R. Perez
@@ -95,6 +95,56 @@ While 1
 	$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//a[contains(text(),'Resources')]")
 	_WD_ElementAction($sSession, $sElement, 'click')
 	_WD_LoadWait($sSession, 2000)
+
+	MsgBox($MB_SYSTEMMODAL, "Go to specific existing curriculum", "//a[contains(text(),'" & $sCSV[1] & "')]")
+	_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//a[contains(text(),'" & $sCSV[1] & "')]")
+	$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//a[contains(text(),'" & $sCSV[1] & "')]")
+	_WD_ElementAction($sSession, $sElement, 'click')
+	_WD_LoadWait($sSession, 2000)
+
+	MsgBox($MB_SYSTEMMODAL, "Click the Gear icon", "//div[@class='action-links-wrapper action-links-wrapper-junior arrow-with-gear-icon sLibraryActionLinks-processed']//div[contains(@class,'action-links-unfold')]")
+	_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//div[@class='action-links-wrapper action-links-wrapper-junior arrow-with-gear-icon sLibraryActionLinks-processed']//div[contains(@class,'action-links-unfold')]")
+	$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//div[@class='action-links-wrapper action-links-wrapper-junior arrow-with-gear-icon sLibraryActionLinks-processed']//div[contains(@class,'action-links-unfold')]")
+	_WD_ElementAction($sSession, $sElement, 'click')
+	_WD_LoadWait($sSession, 2000)
+
+	MsgBox($MB_SYSTEMMODAL, "Click the Remove Public Version option", "//a[@class='action-unpublish-template sExtlink-processed popups-processed']")
+	_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//a[@class='action-unpublish-template sExtlink-processed popups-processed']")
+	$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//a[@class='action-unpublish-template sExtlink-processed popups-processed']")
+	_WD_ElementAction($sSession, $sElement, 'click')
+	_WD_LoadWait($sSession, 1*60*1000)
+
+	MsgBox($MB_SYSTEMMODAL, "Click the Remove button", "//form[@id='s-library-template-unpublish-form']//input[@id='edit-submit']")
+	_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//form[@id='s-library-template-unpublish-form']//input[@id='edit-submit']")
+	$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//form[@id='s-library-template-unpublish-form']//input[@id='edit-submit']")
+	_WD_ElementAction($sSession, $sElement, 'click')
+	_WD_LoadWait($sSession, 5*60*1000)
+
+	MsgBox($MB_SYSTEMMODAL, "Click the Gear icon", "//div[@class='action-links-wrapper action-links-wrapper-junior arrow-with-gear-icon sLibraryActionLinks-processed']//img[@class='action-links-unfold-icon']")
+	_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//div[@class='action-links-wrapper action-links-wrapper-junior arrow-with-gear-icon sLibraryActionLinks-processed']//img[@class='action-links-unfold-icon']")
+	$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//div[@class='action-links-wrapper action-links-wrapper-junior arrow-with-gear-icon sLibraryActionLinks-processed']//img[@class='action-links-unfold-icon']")
+	_WD_ElementAction($sSession, $sElement, 'click')
+	_WD_LoadWait($sSession, 2000)
+
+	MsgBox($MB_SYSTEMMODAL, "Click the Delete option", "//li[contains(@class,'action-collection-template-delete action-delete')]//a[contains(@class,'sExtlink-processed popups-processed')][contains(text(),'Delete')]")
+	_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//li[contains(@class,'action-collection-template-delete action-delete')]//a[contains(@class,'sExtlink-processed popups-processed')][contains(text(),'Delete')]")
+	$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//li[contains(@class,'action-collection-template-delete action-delete')]//a[contains(@class,'sExtlink-processed popups-processed')][contains(text(),'Delete')]")
+	_WD_ElementAction($sSession, $sElement, 'click')
+	_WD_LoadWait($sSession, 1*60*1000)
+
+	MsgBox($MB_SYSTEMMODAL, "Click the Delete button", "//form[@id='s-library-bulk-delete-form']//input[@id='edit-submit']")
+	_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//form[@id='s-library-bulk-delete-form']//input[@id='edit-submit']")
+	$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//form[@id='s-library-bulk-delete-form']//input[@id='edit-submit']")
+	_WD_ElementAction($sSession, $sElement, 'click')
+	_WD_LoadWait($sSession, 5*60*1000)
+
+	MsgBox($MB_SYSTEMMODAL, "Click the Home button", "//a[contains(@class,'collection-title home sLibraryAjaxedLinks-processed sExtlink-processed')]")
+	_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//a[contains(@class,'collection-title home sLibraryAjaxedLinks-processed sExtlink-processed')]")
+	$sElement = _WD_FindElement($sSession, $_WD_LOCATOR_ByXPath, "//a[contains(@class,'collection-title home sLibraryAjaxedLinks-processed sExtlink-processed')]")
+	_WD_ElementAction($sSession, $sElement, 'click')
+	_WD_LoadWait($sSession, 2000)
+
+	Exit
 
 	;MsgBox($MB_SYSTEMMODAL, "Click the Dropdown button", "")
 	_WD_WaitElement($sSession, $_WD_LOCATOR_ByXPath, "//div[contains(@class,'action-links-wrapper action-links-wrapper-regular')]//div[contains(@class,'action-links-unfold')]", 1000)
